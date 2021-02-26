@@ -12,13 +12,13 @@ export default Vue.extend({
   props: {
     user: {
       type: Object,
-      required: true,
+      required: true
     },
     repos: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 })
 </script>
 

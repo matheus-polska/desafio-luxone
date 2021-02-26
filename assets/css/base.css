@@ -22,6 +22,7 @@
 html {
   position: relative;
 }
+
 html,
 body {
   font-family: Roboto;
@@ -43,7 +44,4 @@ body {
 
 .center {
   text-align: center;
-}
-
-.container {
 }

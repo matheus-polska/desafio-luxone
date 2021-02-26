@@ -12,13 +12,13 @@ export default Vue.extend({
   props: {
     bold: {
       type: String,
-      required: true,
+      required: true
     },
     italic: {
       type: String,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 })
 </script>
 

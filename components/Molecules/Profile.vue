@@ -18,15 +18,20 @@
           Seguindo:
           <span class="chip followeing-chip">{{ user.following }}</span>
         </li>
-        <li v-if="user.location">
+        <li>
           Localização:
           <br />
           <br />
-          <span class="chip location-chip">{{ user.location }}</span>
+          <span v-if="user.location" class="chip location-chip">{{
+            user.location
+          }}</span>
+          <span v-else class="chip location-chip">Não possui localização</span>
         </li>
       </ul>
     </div>
-    <a class="btn-go-to-profile" :href="user.html_url">Ver perfil</a>
+    <a class="btn-go-to-profile" :href="user.html_url" target="_blank"
+      >Ver perfil</a
+    >
   </div>
 </template>
 
@@ -34,12 +39,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['user']
 })
 </script>
 
@@ -77,7 +77,7 @@ export default Vue.extend({
   border: 1px solid #e9e8e8;
   display: block;
 }
-/* chip */
+
 .chip {
   padding: 0.2rem 0.3rem;
   color: white;

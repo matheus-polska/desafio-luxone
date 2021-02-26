@@ -2,7 +2,7 @@
   <ul class="repo-list">
     <li v-for="repo in repos" :key="repo.id">
       <div class="repo-name">
-        <a :href="repo.html_url">{{ repo.name }}</a>
+        <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>
       </div>
       <div class="repo-details">
         <span class="repo-chip repo-stars"
@@ -21,12 +21,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  props: {
-    repos: {
-      type: Array,
-      required: true,
-    },
-  },
+  props: ['repos']
 })
 </script>
 
@@ -37,6 +32,7 @@ export default Vue.extend({
   grid-gap: 0.5rem;
   height: max-content;
 }
+
 .repo-list li {
   display: grid;
   grid-auto-flow: column;
@@ -45,17 +41,21 @@ export default Vue.extend({
   border: 1px solid #ccc;
   border-radius: 0.313rem;
 }
+
 .repo-chip {
   padding: 0.313rem;
   color: white;
   font-size: 0.825rem;
 }
+
 .repo-stars {
   background: #ffc107;
 }
+
 .repo-watch {
   background: #6c757d;
 }
+
 .repo-forks {
   background: #198754;
 }
