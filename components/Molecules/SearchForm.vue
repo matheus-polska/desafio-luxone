@@ -33,6 +33,7 @@ export default Vue.extend({
     }
   },
   watch: {
+    //Aqui é um hack. Ele checa em tempo real se o input está vazio. Serve para quando apagarmos todo o valor do input. Aí quando tiver vazio, ele vai emitir um evento com o user vazio e os repositórios também. Já que se o input estiver vazio, nao estaríamos pesquisando nada.
     searchText(value) {
       if (value === '') {
         this.$emit('dispatch', {
@@ -45,6 +46,7 @@ export default Vue.extend({
   },
   methods: {
     getUser() {
+      //Aqui ele checa se o texto a ser pesquisado está vazio, se tiver, emite um evento passando o usuário e repositórios como vazio, já que não tem nada para pesquisar.
       if (this.searchText === '') {
         this.user = {}
         this.repos = []
@@ -52,16 +54,21 @@ export default Vue.extend({
         return
       }
 
+      //A partir de agora, começa a ler de baixo pra cima
+
+      //Aqui checa se tem um timer definido, se tiver, ele vai parar esse timer
       if (this.timer) {
         clearTimeout(<any>this.timer)
         this.timer = null
       }
 
       this.user = {}
+      //Aqui estou atribuindo a propriedade "timer" um setTimeout, que ao mesmo tempo é disparado e demora 1 segundo para executar tudo que tem dentro dele. Ou seja, enquanto o usuário estiver digitando, esse método vai ser chamado, e se tiver um tempo setado, ele vai limpar esse tempo no código acima e começar outro no código abaixo, beleza?
       this.timer = <any>setTimeout(async () => {
+        //Estamos chamando as requisições aqui. Elas foram definidas em métodos separados
         await this.getUserInfo()
         await this.getUserRepos()
-
+        // Com Object.keys() você consegue saber se dentro do objeto há propriedades. Nesse caso estou chegando se foram definidas propriedades no objeto "user" do data(), se tiver propriedades, significa que colocam um usuário lá dentro. Aí então emitimos esse usuário, junto com o repositório
         if (Object.keys(this.user).length > 0) {
           this.$emit('dispatch', {
             user: this.user,
@@ -72,6 +79,7 @@ export default Vue.extend({
       }, 1000)
     },
     getUserInfo(): Promise<void> {
+      //Aqui estamos retornando uma Promise fazendo a requisição do usuário
       return new Promise((resolve, reject) => {
         this.$axios
           .get(
@@ -91,6 +99,7 @@ export default Vue.extend({
       })
     },
     getUserRepos(): Promise<void> {
+      //Aqui estamos retornando uma Promise fazendo a requisição dos repositórios
       return new Promise((resolve, reject) => {
         this.$axios
           .get(
@@ -136,7 +145,7 @@ export default Vue.extend({
 }
 
 @media (max-width: 714px) {
-  .search-field {
+  .search-form {
     width: 100%;
   }
 }
