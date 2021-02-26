@@ -71,7 +71,7 @@ export default Vue.extend({
         }
       }, 1000)
     },
-    getUserInfo(): Promise<object> {
+    getUserInfo(): Promise<void> {
       return new Promise((resolve, reject) => {
         this.$axios
           .get(
@@ -90,7 +90,7 @@ export default Vue.extend({
           })
       })
     },
-    getUserRepos(): Promise<object> {
+    getUserRepos(): Promise<void> {
       return new Promise((resolve, reject) => {
         this.$axios
           .get(
